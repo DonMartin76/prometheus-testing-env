@@ -11,6 +11,29 @@ You can push metrics using most Prometheus client libraries to the Pushgateway, 
 
 To make things easy and to avoid needing a service discovery mechanism, the containers are hard wired to IP addresses in the `docker-compose.yml` file.
 
+### Usage
+
+Run
+
+```
+$ docker-compose up
+```
+
+Browse to
+
+* [localhost:9090](http://localhost:9090) for Prometheus
+* [localhost:3000](http://localhost:9090) for Grafana (username/password is `admin`/`admin`)
+
+### Setting up Grafana to use Prometheus
+
+Add a data source in Grafana,
+
+* Name: `prometheus`
+* Type: `Prometheus`
+* URL: `http://10.222.222.2:9090`
+
+Leave all other settings, then "Add". It should be successful; now you can use Prometheus as a data source for your dashboards.
+
 ## Adding your own containers
 
 If you want to test the scraping of your own containers, the easiest way is to add the container to the `docker-compose.yml` and alter the `prometheus.yml` file in the [`config`](config) directory to match your container.
