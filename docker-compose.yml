@@ -1,0 +1,46 @@
+version: '2'
+
+services:
+  prometheus:
+    build:
+      context: config
+    restart: unless-stopped
+    ports:
+    - "9090:9090"
+    networks:
+      default:
+        ipv4_address: "10.222.222.2"
+
+  pushgateway:
+    image: prom/pushgateway
+    restart: unless-stopped
+    ports:
+    - "9091:9091"
+    networks:
+      default:
+        ipv4_address: "10.222.222.3"
+  
+  grafana:
+    image: grafana/grafana:4.4.3
+    ports:
+    - "3000:3000"
+    networks:
+      default:
+        ipv4_address: "10.222.222.4"
+
+  # your_container:
+  #   image: your.company.com/your_container:tag
+  #   ports:
+  #   - "8080:8080"
+  #   networks:
+  #     default:
+  #       ipv4_address: "10.222.222.5"
+
+networks:
+  default:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+      - subnet: 10.222.222.0/24
+        gateway: 10.222.222.1

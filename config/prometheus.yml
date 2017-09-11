@@ -1,0 +1,12 @@
+global:
+  scrape_interval:     15s
+  evaluation_interval: 15s
+
+scrape_configs:
+- job_name: 'pushgateway'
+  static_configs:
+  - targets: ["10.222.222.3:9091"]
+
+- job_name: 'your_container'
+  static_configs:
+  - targets: ["10.222.222.5:8080"]
